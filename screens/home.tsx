@@ -7,7 +7,7 @@ const Home = () => {
 
   return (
     <SafeAreaView>
-      <Text>Teste vini 1</Text>
+      <Text>Teste vini</Text>
     </SafeAreaView>
   );
 };
