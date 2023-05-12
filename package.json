@@ -8,13 +8,14 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "build:tailwind": "tailwindcss --input input.css --output tailwind.css --no-autoprefixer && tailwind-rn",
-    "dev:tailwind": "concurrently \"tailwindcss --input input.css --output tailwind.css --no-autoprefixer --watch\" \"tailwind-rn --watch\""
+    "dev:tailwind": "concurrently \"tailwindcss --input input.css --output tailwind.css --no-autoprefixer --watch\" \"tailwind-rn --watch\"",
+	"fix:tailwind": "tailwind-rn"
   },
   "dependencies": {
     "expo": "~48.0.11",
     "expo-status-bar": "~1.4.4",
     "react": "18.2.0",
-    "react-native": "0.71.6",
+    "react-native": "0.71.7",
     "tailwind-rn": "^4.2.0"
   },
   "devDependencies": {
@@ -22,8 +23,8 @@
     "@types/react": "~18.0.14",
     "@types/react-native": "^0.71.6",
     "concurrently": "^8.0.1",
-    "postcss": "^8.4.22",
-    "tailwindcss": "^3.3.1",
+    "postcss": "^8.4.23",
+    "tailwindcss": "^3.3.2",
     "typescript": "^4.9.4"
   },
   "private": true
