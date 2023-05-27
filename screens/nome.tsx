@@ -1,19 +1,24 @@
-import { View, Text, SafeAreaView, StatusBar, StyleSheet, Platform, Pressable } from 'react-native';
+import { View, Text, SafeAreaView, StatusBar, StyleSheet, Platform, Pressable, TextInput } from 'react-native';
 import React from 'react';
+import { useState } from 'react';
 import Background from './background';
 import { useTailwind } from 'tailwind-rn/dist';
 
-const Home = () => {
+const Nome = () => {
   const style = useTailwind();
+  const [name, useName] = useState('');
 
   return (
     <View style={styles.top}>
       <SafeAreaView style={styles.container}>
-          <Text style={styles.text}>
-          olá, estou feliz que você esteja conosco.
-          </Text>
+          <Text style={styles.text}>Digite seu nome:</Text>
+          <TextInput
+          style={styles.input}
+          onChangeText={useName}>
+
+          </TextInput>
           <Pressable style={styles.pressable} onPress={() => { console.log('Você pressionou o botão!');}}>
-            <Text style={styles.button}>Começar</Text>
+            <Text style={styles.button}>Salvar</Text>
           </Pressable>
           <Background></Background>
           
@@ -36,17 +41,25 @@ const styles = StyleSheet.create({
   },
   text: {
     //fontFamily: "Itim",
-    flex: 1,
     width: 275,
     height: 51,
     top: 124,
-    fontWeight: 'bold',
     fontSize: 20,
     textAlign: 'center',
     letterSpacing:  -0.00022,
     textTransform: 'capitalize',
     color: '#000000',
-    alignSelf: 'center'
+    alignSelf: 'center',
+  },
+  input: {
+    height: 31,
+    marginTop: 120,
+    width: 275,
+    alignSelf: 'center',
+    marginBottom: 21,
+    padding: 10,
+    backgroundColor: '#7CC1F4',
+    borderRadius: 10
   },
   pressable: {
     height: 43,
@@ -66,4 +79,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default Nome;

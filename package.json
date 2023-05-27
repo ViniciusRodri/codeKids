@@ -13,9 +13,13 @@
   "dependencies": {
     "expo": "~48.0.11",
     "expo-status-bar": "~1.4.4",
+    "lottie-react-native": "^5.1.5",
     "react": "18.2.0",
     "react-native": "0.71.6",
-    "tailwind-rn": "^4.2.0"
+    "tailwind-rn": "^4.2.0",
+    "react-native-web": "~0.18.10",
+    "react-dom": "18.2.0",
+    "@expo/webpack-config": "^18.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
