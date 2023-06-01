@@ -6,43 +6,49 @@ import {
   StyleSheet,
   Platform,
   Pressable,
-  TextInput,
   Alert,
 } from "react-native";
 import React from "react";
 import { useState } from "react";
 import Background from "./background";
-import { useTailwind } from "tailwind-rn/dist";
+import RNPickerSelect from "react-native-picker-select";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 
-const Nome = () => {
-  const [name, setName] = useState("");
+const Age = () => {
+  const [age, setAge] = useState("");
   const navigation = useNavigation();
 
   const saveUserInfo = async () => {
     try {
-      await AsyncStorage.setItem("name", name);
+      await AsyncStorage.setItem("age", age);
+      navigation.navigate("Dashboard");
 
       Alert.alert("Informações salvas com sucesso!");
-      navigation.navigate("Idade");
     } catch (error) {
       console.log("Erro ao salvar as informações do usuário:", error);
     }
   };
 
-  const handleNameChange = (text: string) => {
-    setName(text);
+  const handleAgeChange = (value: any) => {
+    setAge(value);
   };
 
   return (
     <View style={styles.top}>
       <SafeAreaView style={styles.container}>
-        <Text style={styles.text}>Digite seu nome:</Text>
-        <TextInput
-          style={styles.input}
-          value={name}
-          onChangeText={handleNameChange}
+        <Text style={styles.text}>Selecione sua idade:</Text>
+        <RNPickerSelect
+          value={age}
+          onValueChange={handleAgeChange}
+          items={[
+            { label: "Selecione sua idade:", value: "" },
+            ...Array.from({ length: 9 }, (_, index) => ({
+              label: `${7 + index} anos`,
+              value: `${7 + index}`,
+            })),
+          ]}
+          style={pickerSelectStyles}
         />
         <Pressable style={styles.pressable} onPress={saveUserInfo}>
           <Text style={styles.button}>Salvar</Text>
@@ -52,6 +58,28 @@ const Nome = () => {
     </View>
   );
 };
+const pickerSelectStyles = StyleSheet.create({
+  inputIOS: {
+    height: 31,
+    marginTop: 120,
+    width: 275,
+    alignSelf: "center",
+    marginBottom: 21,
+    padding: 10,
+    backgroundColor: "#7CC1F4",
+    borderRadius: 10,
+  },
+  inputAndroid: {
+    height: 31,
+    marginTop: 120,
+    width: 275,
+    alignSelf: "center",
+    marginBottom: 21,
+    padding: 10,
+    backgroundColor: "#7CC1F4",
+    borderRadius: 10,
+  },
+});
 
 const styles = StyleSheet.create({
   top: {
@@ -77,15 +105,22 @@ const styles = StyleSheet.create({
     color: "#000000",
     alignSelf: "center",
   },
-  input: {
-    height: 31,
+  selectContainer: {
     marginTop: 120,
     width: 275,
     alignSelf: "center",
     marginBottom: 21,
-    padding: 10,
+  },
+  select: {
+    height: 31,
     backgroundColor: "#7CC1F4",
     borderRadius: 10,
+  },
+  selectItem: {
+    justifyContent: "flex-start",
+  },
+  selectDropdown: {
+    backgroundColor: "#7CC1F4",
   },
   pressable: {
     height: 43,
@@ -105,4 +140,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Nome;
+export default Age;
