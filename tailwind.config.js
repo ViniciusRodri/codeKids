@@ -1,8 +1,9 @@
 module.exports = {
-  content: ['./**/*.tsx'],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        itim: ["Itim_400Regular"],
+      },
+    },
   },
-  plugins: [],
-  corePlugins: require('tailwind-rn/unsupported-core-plugins'),
 };
