@@ -8,16 +8,36 @@ import {
   Pressable,
   ImageBackground,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import LottieView from "lottie-react-native";
 import { useNavigation } from "@react-navigation/native";
 import * as WebBrowser from "expo-web-browser";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Dashboard = () => {
-  const navigation = useNavigation();
+  const [userAge, setUserAge] = useState("");
+
+  useEffect(() => {
+    const fetchUserAge = async () => {
+      try {
+        const age = await AsyncStorage.getItem("age");
+        if (age) {
+          setUserAge(age);
+        }
+      } catch (error) {
+        console.log("Erro ao recuperar a idade do usuário:", error);
+      }
+    };
+
+    fetchUserAge();
+  }, []);
 
   const handleNextScreen = async () => {
-    await WebBrowser.openBrowserAsync("https://blockly.games/"); // Substitua pela URL desejada
+    await WebBrowser.openBrowserAsync("https://blockly.games/");
+  };
+
+  const handleCourseScreen = async () => {
+    await WebBrowser.openBrowserAsync("https://studio.code.org/s/express-2021");
   };
 
   return (
@@ -38,7 +58,20 @@ const Dashboard = () => {
             style={styles.pressable}
           />
         </Pressable>
+
         <Text style={styles.text2}>Blocky Gamers - Aprenda a programar</Text>
+      </View>
+      <View style={styles.container2}>
+        {userAge && Number(userAge) > 13 && (
+          <Pressable
+            style={styles.pressable2}
+            onPress={() => {
+              handleCourseScreen();
+            }}
+          >
+            <Text style={styles.button}>Aulas</Text>
+          </Pressable>
+        )}
       </View>
 
       <LottieView
@@ -61,6 +94,17 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     height: 380, // ajuste conforme necessário
   },
+  pressable2: {
+    height: 43,
+    width: 95,
+
+    backgroundColor: "#1C54E4",
+    alignSelf: "center",
+    alignContent: "center",
+    justifyContent: "center",
+    shadowColor: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+    borderRadius: 10,
+  },
   container: {
     flex: 1,
     resizeMode: "cover",
@@ -78,8 +122,8 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
-  view: {
-    flex: 1,
+  container2: {
+    bottom: 380,
   },
   text: {
     fontFamily: "Itim",

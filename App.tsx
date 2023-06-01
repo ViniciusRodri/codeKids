@@ -1,19 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AppLoading from "expo-app-loading";
 import { TailwindProvider } from "tailwind-rn";
-import Home from "./screens/home";
-import { useFonts, Itim_400Regular } from "@expo-google-fonts/itim";
+import * as Font from "expo-font";
 import utilities from "./tailwind.json";
-import { tailwind } from "./tailwind.config.js";
+import tailwind from "./tailwind.config.js";
 import AppNavigator from "./screens/navigation";
+import { SplashScreen } from "expo";
 
 export default function App() {
-  let [fontsLoaded] = useFonts({
-    Itim_400Regular,
-  });
+  useEffect(() => {
+    const loadFonts = async () => {
+      await Font.loadAsync({
+        Itim: require("./assets/font.ttf"),
+      });
+      SplashScreen.hideAsync(); // Oculta a tela de inicialização assim que as fontes forem carregadas
+    };
 
-  if (!fontsLoaded) {
-    return <AppLoading />;
+    loadFonts();
+  }, []);
+
+  // Renderiza o componente AppLoading enquanto as fontes estão sendo carregadas
+  if (!Font.isLoaded("Itim")) {
+    return (
+      <AppLoading
+        startAsync={loadFonts}
+        onFinish={() => {}}
+        onError={() => {}}
+      />
+    );
   }
 
   return (

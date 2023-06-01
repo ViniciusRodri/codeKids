@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   text: {
-    //fontFamily: "Itim",
+    fontFamily: "Itim",
     width: 275,
     height: 51,
     top: 124,
